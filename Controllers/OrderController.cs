@@ -14,20 +14,22 @@ public class OrderController : ControllerBase
         Customer customer = customerRepository.GetById(request.CustomerId);
 
         // Check inventory
+        InventoryRepository inventoryRepository = new InventoryRepository();
+        float materialModifier = inventoryRepository.GetMaterialPriceModifier(request.Material);
         
         // Calculate price
         int price = 0;
         if (request.ItemType == "Sword")
         {
-            price = 5;
+            price = 5 * (int)materialModifier;
         }
         else if (request.ItemType == "Spear")
         {
-            price = 15;
+            price = 15 * (int)materialModifier;
         }
         else if (request.ItemType == "Shield")
         {
-            price = 25;
+            price = 25 * (int)materialModifier;
         }
 
         // Calculate delivery date
