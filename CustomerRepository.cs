@@ -4,11 +4,6 @@ public class CustomerRepository
 {
     public Customer GetById(int id)
     {
-        var categories = new string[]{"Regular", "Express", "Premium"};
-        return new Customer()
-        {
-            Id = id,
-            Category = categories[id%3]
-        };
+        return BlacksmithDatabase.Get<Customer>("customers", x => x.Id == id);
     }
 }
